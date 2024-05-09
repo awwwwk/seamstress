@@ -33,50 +33,36 @@ additionally, [monome](https://monome.org) has studies for scripting in Lua for
 
 ## installation
 
-seamstress requires `freetype2`, `harfbuzz` and `ncurses`. on macOS do
-
-```bash
-brew install freetype2 harfbuzz ncurses
-```
-
-alternatively to install with homebrew, do
+to install with homebrew, do
 ```bash
 brew tap ryleelyman/seamstress
 brew install seamstress
 ```
 
-on linux, additional requirements include `alsa`.
-each release comes with a binary for `x86_64` linux and macOS,
-as well as `aarch64` (Apple silicon) macOS.
-download the appropriate file, unzip it and 
-(technically optionally) add it to your PATH.
-
 if you'd like to use [monome](https://monome.org) devices with seamstress,
 you'll need to install [serialosc](https://github.com/monome/serialosc).
 
-NB: `seamstress` expects the file structure found inside the zipped folder
-and will not work as expected if you move only the binary to a different folder.
+to instead build from source, you'll need the following libraries.
+the following incantation is for homebrew,
+but the list of dependencies is identical on linux.
+```bash
+brew install pkg-config zig asio liblo lua readline rtmidi sdl2 sdl2_image sdl2_ttf
+```
 
-## building from source
-
-
-building seamstress from source requires version 0.11.0 of [zig](https://github.com/ziglang/zig).
-the easiest way to get zig is to download a binary from [here](https://ziglang.org/download/) and add it to your PATH.
-seamstress follows releases of zig.
-to build seamstress, install the dependencies listed above (as well as `pkg-config`) and invoke
-
+with those installed, you can execute
 ```bash
 zig build
 ```
+to build a copy of seamstress in `zig-out`.
 
 NB: this command builds `seamstress` in Debug mode.
 you can change this 
 by passing `-Doptimize=ReleaseFast` or `-Doptimize=ReleaseSafe` to the build command.
 
-NB: `seamstress` will be built as `zig-out/bin/seamstress`; you can add this to your PATH to have it available as `seamstress`.
-
-if you previously built seamstress with `sudo`, you may want to run `sudo zig build uninstall -p /usr/local` to remove the old binary.
-you may also have to delete `~/.cache/zig` as well as `zig-cache` in the relevant directories.
+NB: the created seamstress expects the directory structure
+within `zig-out`. if you move `zig-out/bin/seamstress` somewhere else,
+say to `/usr/local/bin/seamstress`
+don't forget to move `zig-out/share/seamstress` to `/usr/local/share/seamstress` as well.
 
 ## docs
 
